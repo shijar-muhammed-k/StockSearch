@@ -53,3 +53,4 @@ function res(element){
     }
     resBox.innerHTML = (phone[element]).toUpperCase()
 }
+

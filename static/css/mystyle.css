@@ -151,4 +151,23 @@ button.adminBtn {
 
 button.productButton.adminBtn {
   width: 100px;
+  border-radius: 7px;
+  color: #fff;
+  background: gray;
+}
+
+button.editButton.adminBtn {
+  border-radius: 7px;
+  color: #fff;
+  background: #48bb48;
+}
+
+button.deleteButton.adminBtn {
+  border-radius: 7px;
+  color: #fff;
+  background: #bf2525;
+}
+
+button.adminBtn:hover{
+  transform:  translateY(-3px);
 }

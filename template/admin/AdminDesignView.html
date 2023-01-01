@@ -44,54 +44,14 @@
     </div>
     <!-- end loader -->
     <!-- header -->
-    <header>
-        <!-- header inner -->
-        <div class="header">
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
-                        <div class="full">
-                            <div class="center-desk">
-                                <div class="logo">
-                                    <a href=""><img src="{% static 'images/logo.png' %}" alt="#"></a>
-                                </div>
-                            </div>  
-                        </div>
-                    </div>
-                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
-                        <div class="menu-area">
-                            <div class="limit-box">
-                                <nav class="main-menu">
-                                    <ul class="menu-area-main">
-                                        <li class="active"> <a href="">Home</a> </li>
-                                        <li><a href="products">Product</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 offset-md-6">
-                        <div class="location_icon_bottum">
-                            <ul>
-                                <li><img src="{% static 'icon/call.png' %}" />(+71)9876543109</li>
-                                <li><img src="{% static 'icon/email.png' %}" />demo@gmail.com</li>
-                                <li><img src="{% static 'icon/loc.png' %}" />Location</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- end header inner -->
-    </header>
+    {% include 'admin/navBar.html' %}
     <!-- end header -->
     <div class="brand_color">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="titlepage">
-                        <h2>Our Products</h2>
+                        <h2>Designs</h2>
                     </div>
                 </div>
             </div>
@@ -116,10 +76,10 @@
                                 <i><img src="{% static 'images/star.png' %}"/></i>
                                 <i><img src="{% static 'images/star.png' %}"/></i>
                                 <br>
-                                <button class="editButton adminBtn" onClick='editBtn("{{i.2}}")'>Edit</button>
-                                <button class="deleteButton adminBtn" onClick='deleteBtn("{{i.2}}")'>Delete</button>
+                                <button class="editButton adminBtn" onClick='editBtn("{{i.1}}","{{i.2}}")'>Edit</button>
+                                <button class="deleteButton adminBtn" onClick='deleteBtn("{{i.1}}","{{i.2}}")'>Delete</button>
                                 <br>
-                                <button class="productButton adminBtn" onClick='detailsBtn("{{i.2}}")'>Edit Stock</button>
+                                <button class="productButton adminBtn" onClick='detailsBtn("{{i.1}}","{{i.2}}")'>Edit Stock</button>
                             </div>
                         </div>
                     {% endfor %}
@@ -172,18 +132,17 @@
     <script src="{% static 'js/owl.carousel.js' %}"></script>
     <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
     <script>
-        function editBtn(type){
-            window.confirm("edit-case/"+type )
-            window.location.href="edit-case-"+type
+        function editBtn(ctype, dtype){
+            window.location.href="edit-"+ctype+"-"+dtype
         }
-        function deleteBtn(type){
-            op = confirm("Are you sure to delete "+ type +".")
+        function deleteBtn(ctype, dtype){
+            op = confirm("Are you sure to delete "+ dtype +".")
             if (op == true){
-                window.location.href="delete-case-"+type+""
+                window.location.href="deletedesign-"+ctype+"-"+dtype
             }
         }
-        function detailsBtn(type){
-            window.location.href="admin-design-view-"+type+""
+        function detailsBtn(ctype, dtype){
+            window.location.href="updateStock-"+ctype+"-"+dtype
         }
     </script>
     <script>

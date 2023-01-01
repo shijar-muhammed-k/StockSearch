@@ -45,54 +45,14 @@
     </div>
     <!-- end loader -->
     <!-- header -->
-    <header>
-        <!-- header inner -->
-        <div class="header">
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
-                        <div class="full">
-                            <div class="center-desk">
-                                <div class="logo">
-                                    <a href=""><img src="{% static 'images/logo.png' %}" alt="#"></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
-                        <div class="menu-area">
-                            <div class="limit-box">
-                                <nav class="main-menu">
-                                    <ul class="menu-area-main">
-                                        <li class="active"> <a href="">Home</a> </li>
-                                        <li><a href="products">Product</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 offset-md-6">
-                        <div class="location_icon_bottum">
-                            <ul>
-                                <li><img src="{% static 'icon/call.png' %}" />(+71)9876543109</li>
-                                <li><img src="{% static 'icon/email.png' %}" />demo@gmail.com</li>
-                                <li><img src="{% static 'icon/loc.png' %}" />Location</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- end header inner -->
-    </header>
+    {% include 'admin/navBar.html' %}
     <!-- end header -->
     <div class="brand_color">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="titlepage">
-                        <h2>Our Products</h2>
+                        <h2>Edit Stock</h2>
                     </div>
                 </div>
             </div>
@@ -108,14 +68,19 @@
             <div class="container">
                 <div class="row">
                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 margin">
-                            <div class="brand_box" id="stockBox">
-                                <img src="media/{{design}}" alt="{{design}} image" />
-                                <input type="text" id="phoneName" name="phoneName" placeholder="Enter the Phone Name"><br>
-                                <ul class="phoneList" id="phoneList"></ul>
-                                Availability:<br>
-                                <div id="resBox">
+                            <form action="updateStock-{{c_dtype.0}}-{{c_dtype.1}}" method="post">
+                                {% csrf_token %}
+                                <div class="brand_box" id="stockBox">
+                                    <img src="media/{{design}}" alt="{{design}} image" />
+                                    <input type="text" id="phoneName" name="phoneName" placeholder="Enter the Phone Name"><br>
+                                    <ul class="phoneList" id="phoneList"></ul>
+                                    Availability:<br>
+                                    <input type="text" id="stockRes" value="0" name='stockRes' hidden>
+                                    <div id="resBox">
+                                    </div>
+                                    <button type="submit" id="changeBtn" class="saveBtn">Change</button>
                                 </div>
-                            </div>
+                            </form>
             </div>
         </div>
     </div>
@@ -185,6 +150,33 @@
         for (key of Object.keys(phone)){
             phones.push(key)
         }
+        btn = document.getElementById('changeBtn')
+        btn.disabled = true
+        boxValue = document.getElementById('stockRes')
+        phoneNameInput = document.getElementById('phoneName')
+        phoneNameInput.addEventListener('change', ()=>{
+            phones.forEach(element => {
+                if(element.toLowerCase() == phoneNameInput.value.toLowerCase()){
+                    btn.disabled = false
+
+                }
+            });
+        })
+        changeBox = document.getElementById('resBox')
+        changeBox.addEventListener('click', ()=>{
+            if(changeBox.innerHTML == 'YES'){
+                changeBox.innerHTML = "NO"
+                boxValue.value = "NO" 
+                changeBox.classList.remove('success-msg')
+                changeBox.classList.add('warning-msg')
+            }
+            else{
+                boxValue.value = "YES"
+                changeBox.innerHTML = 'YES'
+                changeBox.classList.remove('warning-msg')
+                changeBox.classList.add('success-msg')      
+            }
+        })
     </script>
     <script src="{% static 'js/myscript.js' %}"></script>
 </body>
